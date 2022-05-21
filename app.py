@@ -30,9 +30,12 @@ person = {"is_logged_in": False, "name": "", "email": "", "uid": ""}
 db.child("users").child(person["uid"]).push({})
 #Login
 @app.route("/")
-def login():
+def landing():
     return render_template("landing.html")
-
+#Login
+@app.route("/login")
+def login():
+    return render_template("login.html")
 @app.route("/logout")
 def logout():
     person["is_logged_in"] = False
