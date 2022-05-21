@@ -31,7 +31,7 @@ db.child("users").child(person["uid"]).push({})
 #Login
 @app.route("/")
 def login():
-    return render_template("login.html")
+    return render_template("landing.html")
 
 @app.route("/logout")
 def logout():
