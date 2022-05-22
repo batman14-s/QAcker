@@ -86,7 +86,7 @@ input[type=button], input[type=submit], input[type=reset]  {
   background-color: #56baed;
   border: none;
   color: white;
-  padding: 15px 80px;
+  padding: 15px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -97,7 +97,7 @@ input[type=button], input[type=submit], input[type=reset]  {
   box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
-  margin: 5px 20px 40px 20px;
+  margin: 5px 20px 20px 20px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
@@ -229,6 +229,8 @@ input[type=email]:placeholder, input[type=password]:placeholder, input[type=text
   -webkit-animation-delay: 1s;
   -moz-animation-delay: 1s;
   animation-delay: 1s;
+  padding-bottom: 25px;
+  display: flex;
 }
 
 /* Simple CSS3 Fade-in Animation */
@@ -266,4 +268,50 @@ input[type=email]:placeholder, input[type=password]:placeholder, input[type=text
 
 * {
   box-sizing: border-box;
+}
+.detail {
+  margin: 0;
+  padding-left: 5px;
+  border: solid gold 3px;
+  background-color: beige;
+}
+.google-btn {
+  width: 184px;
+  height: 42px;
+  background-color: #4285f4;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  display: block;
+}
+.google-btn .google-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+.google-icon {
+  padding-bottom: 30px;
+  padding-left: 20px;
+}
+#okay{
+  padding-left: 24px;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+.google-btn .btn-text {
+  float: right;
+  margin: 11px 11px 0 0;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-family: "Roboto";
+}
+.google-btn:hover {
+  box-shadow: 0 0 6px #4285f4;
+}
+.google-btn:active {
+  background: #1669f2;
 }
