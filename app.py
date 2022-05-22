@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import requests
 from flask import Flask,render_template,url_for
 from flask import request as req
-
+from flask_dance.contrib.google import make_google_blueprint, google
 load_dotenv()
 app = Flask(__name__)
      #Initialze flask constructor
@@ -18,6 +18,22 @@ config = {
   "storageBucket":environ.get("STORAGE_BUCKET"),
   "databaseURL":environ.get("DATABASE_URL")
 }
+
+client_id = os.getenv('GOOGLE_CLIENT_ID')
+client_secret = os.getenv('GOOGLE_CLIENT_SECRET')
+app.secret_key = os.getenv('secret_key')
+
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
+
+blueprint = make_google_blueprint(
+    client_id=client_id,
+    client_secret=client_secret,
+    reprompt_consent=True,
+    scope=["profile", "email"],
+    offline=True,
+)
+app.register_blueprint(blueprint, url_prefix="/login")
 
 #initialize firebase
 firebase = pyrebase.initialize_app(config)
@@ -31,22 +47,37 @@ db.child("users").child(person["uid"]).push({})
 #Login
 @app.route("/")
 def landing():
+    person["is_logged_in"] = False
+    person["email"] = ""
+    person["uid"] = ""
+    person["name"] = ""
+    google_data = None
+    user_info_endpoint = '/oauth2/v2/userinfo'
+    if google.authorized :
+        google_data = google.get(user_info_endpoint).json()
+        print("okay",google_data)
+        if'error' in google_data:
+              return render_template("landing.html")
+        print(google_data)
+        person['email']=google_data['email']
+        person['name']=google_data['name']
+        person["is_logged_in"]=True
+        data = {"name":google_data['name'], "email": google_data['email']}
+        t1=db.child("users").child(google_data["id"]).set(data)
+        return redirect(url_for('welcome'))
     return render_template("landing.html")
 #Login
 @app.route("/login")
 def login():
     return render_template("login.html")
-@app.route("/logout")
-def logout():
-    person["is_logged_in"] = False
-    person["email"] = ""
-    person["uid"] = ""
-    person["name"] = ""
-    return redirect(url_for('login'))
 #Sign up/ Register
 @app.route("/signup")
 def signup():
     return render_template("signup.html")
+
+@app.route("/loginwithgoogle")
+def loginwithgoogle():
+    return redirect(url_for('google.login'))
 
 #Welcome page
 @app.route("/welcome",methods=["POST","GET"])
@@ -200,7 +231,22 @@ def Summarize():
     else:
         return render_template("index.html")
 
-
+@app.route("/logout")
+def logout():
+    if google.authorized:
+        token = blueprint.token["access_token"]
+        resp = google.post(
+            "https://accounts.google.com/o/oauth2/revoke",
+            params={"token": token},
+            headers={"Content-Type": "application/x-www-form-urlencoded"}
+        )
+        assert resp.ok, resp.text
+        print(google.get("/oauth2/v2/userinfo").json())
+    person["is_logged_in"] = False
+    person["email"] = ""
+    person["uid"] = ""
+    person["name"] = ""
+    return render_template("landing.html")
 # -----------------------------------------------------------------------------------------
 # ============================================================================================
 
