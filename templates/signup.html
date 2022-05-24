@@ -1,21 +1,24 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% block body %}
+
 <head>
-	<title>Pyrebase-Flask-Login</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'main.css') }}">
 </head>
 <body>
+  <br>
+  <br>
+  <br>
+  <br>
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
     <a href="/login"><h2 class="inactive underlineHover"> Sign In </h2></a>
     <h2 class="active">Sign Up </h2>
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="{{ url_for('static', filename = 'user.png') }}" id="icon" alt="User Icon" />
+     <!-- Icon -->
+     <div class="fadeIn first" style="width: 100px; display:block; margin-left:auto; margin-right:auto;">
+      <div class="tenor-gif-embed" style="height: 2vh;"data-postid="21402725" data-share-method="host" data-aspect-ratio="0.81875" data-width="100%"><a href="https://tenor.com/view/dancing-duckdancing-duck-gif-21402725">Dancing Duckdancing Sticker</a>from <a href="https://tenor.com/search/dancing-stickers">Dancing Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
     </div>
-
     <!-- Login Form -->
     <form action="http://127.0.0.1:5000/register" method="POST">
       <input type="text" id="name" class="fadeIn second" name="name" placeholder="name">
@@ -27,4 +30,4 @@
   </div>
 </div>
 </body>
-</html>
+{% endblock %}

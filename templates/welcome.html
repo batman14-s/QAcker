@@ -1,3 +1,147 @@
+{% extends 'base1.html' %}
+
+    
+{% block body %}
+
+  
+  <main id="main">
+<br>
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Features offerred</h2>
+          <p>With our web application you can perform multiple operations on textual data</p>
+        </div>
+
+        <div class="row gy-5">
+
+          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+            <div class="service-item">
+              <div class="img">
+                <!-- <img src="assets/img/services-1.jpg" class="img-fluid" alt=""> -->
+                <img src="{{url_for('static', filename='assets/img/services-1.png')}}" class="img-fluid" alt="" />
+              </div>
+              <div class="details position-relative">
+                <div class="icon">
+                  <i class="bi bi-activity"></i>
+                </div>
+                <a href="/home" class="stretched-link">
+                  <h3>SUMMARIZE</h3>
+                </a>
+                <p>Enter the text data and generate summary of the same using multiple NLP models</p>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+            <div class="service-item">
+              <div class="img">
+                <!-- <img src="assets/img/services-2.jpg" class="img-fluid" alt=""> -->
+                <img src="{{url_for('static', filename='assets/img/services-2.png')}}" class="img-fluid" alt="" />
+              </div>
+              <div class="details position-relative">
+                <div class="icon">
+                  <i class="bi bi-broadcast"></i>
+                </div>
+                <a href="/paraphrase" class="stretched-link">
+                  <h3>PARAPHRASE</h3>
+                </a>
+                <p>Enter the text data and generate paraphrased version of the same. Very useful to improve the quality of assignments, essays, questions etc.</p>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+            <div class="service-item">
+              <div class="img">
+                <!-- <img src="assets/img/services-3.jpg" class="img-fluid" alt=""> -->
+                <img src="{{url_for('static', filename='assets/img/services-3.png')}}" class="img-fluid" alt="" />
+              </div>
+              <div class="details position-relative">
+                <div class="icon">
+                  <i class="bi bi-easel"></i>
+                </div>
+                <a href="/question" class="stretched-link">
+                  <h3>QUESTION GENERATOR</h3>
+                </a>
+                <p>Enter the context and choose the type of question you'd like to generate : Boolean (Yes/No) or MCQ type. Based on the amount of context provided, you can get different questions.</p>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="500">
+            <div class="service-item">
+              <div class="img">
+                <!-- <img src="assets/img/services-4.jpg" class="img-fluid" alt=""> -->
+                <img src="{{url_for('static', filename='assets/img/services-4.png')}}" class="img-fluid" alt="" />
+              </div>
+              <div class="details position-relative">
+                <div class="icon">
+                  <i class="bi bi-bounding-box-circles"></i>
+                </div>
+                <a href="/answer" class="stretched-link">
+                  <h3>ANSWER PREDICTOR</h3>
+                </a>
+                <p>Enter the context and the question whose answer you'd like to find. Select weather you want a Boolean(YES/NO) or detailed answer. The appliaction analyses the data provided and predicts the answer woth high accuracy. </p>
+                <a href="/answer" class="stretched-link"></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="600">
+            <div class="service-item">
+              <div class="img">
+                <!-- <img src="assets/img/services-5.jpg" class="img-fluid" alt=""> -->
+                <img src="{{url_for('static', filename='assets/img/services-5.png')}}" class="img-fluid" alt="" />
+              </div>
+              <div class="details position-relative">
+                <div class="icon">
+                  <i class="bi bi-calendar4-week"></i>
+                </div>
+                <a href="/tts" class="stretched-link">
+                  <h3>TEXT TO SPEECH</h3>
+                </a>
+                <p>Make the web application read aloud the text entered by you. It can read aloud the various summaries generated as well.</p>
+                <a href="/tts" class="stretched-link"></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="700">
+            <div class="service-item">
+              <div class="img">
+                <!-- <img src="assets/img/services-6.jpg" class="img-fluid" alt=""> -->
+                <img src="{{url_for('static', filename='assets/img/services-6.png')}}" class="img-fluid" alt="" />
+              </div>
+              <div class="details position-relative">
+                <div class="icon">
+                  <i class="bi bi-chat-square-text"></i>
+                </div>
+                <a href="/stt" class="stretched-link">
+                  <h3>REAL TIME SPEECH TO TEXT</h3>
+                </a>
+                <p>Generate real time text from speech, can be very useful when you don't want to type or write and gather your thoughts at one place.</p>
+                <a href="/stt" class="stretched-link"></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    
+
+   
+  </main><!-- End #main -->
+
+  
+{% endblock %}
+
+
 <!DOCTYPE html>
 <html>
 <head>

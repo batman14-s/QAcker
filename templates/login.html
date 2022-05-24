@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base1.html' %}
+
+
+{% block body %}
 <head>
-	<title>QAcker</title>
+
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'main.css') }}">
 </head>
 <body>
+  <br>
+  <br>
+  <br>
+  <br>
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -12,8 +18,8 @@
     <a href="/signup"><h2 class="inactive underlineHover">Sign Up </h2></a>
 
     <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="{{ url_for('static', filename = 'user.png') }}" id="icon" alt="User Icon" />
+    <div class="fadeIn first" style="width: 100px; display:block; margin-left:auto; margin-right:auto;">
+      <div class="tenor-gif-embed" style="height: 2vh;"data-postid="21402725" data-share-method="host" data-aspect-ratio="0.81875" data-width="100%"><a href="https://tenor.com/view/dancing-duckdancing-duck-gif-21402725">Dancing Duckdancing Sticker</a>from <a href="https://tenor.com/search/dancing-stickers">Dancing Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
     </div>
 
     <!-- Login Form -->
@@ -23,11 +29,9 @@
       <input type="submit" class="fadeIn third" value="Log In">
       <hr>
     </form>
-    <a href="/loginwithgoogle" class="fadeIn fourth" id="okay">
-      Sign in with google
-    </a>
-   
-<!-- 
+      <a href="/loginwithgoogle" style="margin-bottom:20px;" class="btn-get-started scrollto"> Sign in with google</a>
+
+<!--
 	Will add in future
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>
@@ -36,4 +40,4 @@
   </div>
 </div>
 </body>
-</html>
+{% endblock %}
