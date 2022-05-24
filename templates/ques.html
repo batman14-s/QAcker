@@ -1,0 +1,130 @@
+{% extends 'base1.html' %}
+
+
+{% block body %}
+<head>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<br><br><br><br><br><br>
+<h1>Generate Questions</h1>
+<div id="mainpane">
+
+    <form action="/questions" method="POST">
+        <br> <br>
+        <textarea id="text_data" name="text_data" placeholder="Enter text to generate questions" rows="10" cols="120" style="margin: 2rem"></textarea>
+
+        <div class="container">
+            <div class="plans">
+
+                <div class="title">Choose the type of questions to generate</div>
+                <label class="plan basic-plan" for="basic">
+                    <input checked type="radio" name="plan" id="basic" value="mcq" />
+                    <div class="plan-content">
+                        <!-- <img loading="lazy"
+                            src="https://raw.githubusercontent.com/ismailvtl/ismailvtl.github.io/master/images/life-saver-img.svg"
+                            alt="" /> -->
+                        <div class="plan-details">
+                            <span>MCQ Questions</span>
+                            <p>Generates questions and provides 4 options with one correct answer.</p>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="plan complete-plan" for="complete">
+                    <input type="radio" id="complete" name="plan" value="boolean" />
+                    <div class="plan-content">
+                        <!-- <img loading="lazy"
+                            src="https://raw.githubusercontent.com/ismailvtl/ismailvtl.github.io/master/images/potted-plant-img.svg"
+                            alt="" /> -->
+                        <div class="plan-details">
+                            <span>Boolean : Yes/No Questions</span>
+                            <p>Provides questions with their answer being of the form Yes/No or True/False</p>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <input type="submit" value="SAVE" id="saveButton" />
+        </div>
+    </form>
+
+
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq">
+        <div class="container-fluid" data-aos="fade-up">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+
+                    <div class="content px-xl-5">
+                        <h3>Questions Generated:</h3>
+                        <p>
+                            Context : {{text}}
+                        </p>
+                    </div>
+
+                    <div class="accordion accordion-flush px-xl-5" id="faqlist">
+
+
+
+                        {% if type == "boolean" %}
+                        {% for que in questions %}
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-1">
+                                    <i class="bi bi-question-circle question-icon"></i>
+                                    {{que}}
+                                </button>
+                            </h3>
+                            <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li>Yes</li>
+                                        <li>No</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if type == 'mcq' %}
+                        {% for que in questions %}
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-1">
+                                    <i class="bi bi-question-circle question-icon"></i>
+                                    {{que.question}}
+                                </button>
+                            </h3>
+                            <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    {% for op in que.options %}
+                                    <li>{{ op }}</li>
+                                    {% endfor %}
+                                    <br>
+                                    Answer is: {{ que.answer }}
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        {% endfor %}
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
+                    style='background-image: url("assets/img/faq.jpg");'>&nbsp;</div>
+
+            </div>
+
+        </div>
+    </section><!-- End F.A.Q Section -->
+
+
+    {% endblock %}

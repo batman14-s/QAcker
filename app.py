@@ -2,12 +2,25 @@ import pyrebase
 import speech_recognition as sr
 from os import environ
 import os
+from flask import jsonify
 from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
 from dotenv import load_dotenv
 import requests
+from gtts import gTTS
 from flask import Flask,render_template,url_for
 from flask import request as req
 from flask_dance.contrib.google import make_google_blueprint, google
+from question_generator import yes_no_que, mcq_ques, answer_boolean, answer_predictor
+from nltk.corpus import wordnet
+from nltk.tokenize import word_tokenize
+from random import randint
+import nltk.data
+from nltk.tokenize import sent_tokenize
+import nltk
+nltk.download('averaged_perceptron_tagger')
+nltk.download('punkt')
+nltk.download('wordnet')
+
 load_dotenv()
 app = Flask(__name__)
      #Initialze flask constructor
@@ -43,7 +56,44 @@ db.child("users")
 #Initialze person as dictionary
 
 person = {"is_logged_in": False, "name": "", "email": "", "uid": ""}
-db.child("users").child(person["uid"]).push({})
+def ph(text):
+    output = ""
+
+    # Load the pretrained neural net
+    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+
+    # Tokenize the text
+    tokenized = tokenizer.tokenize(text)
+
+    # Get the list of words from the entire text
+    words = word_tokenize(text)
+
+    # Identify the parts of speech
+    tagged = nltk.pos_tag(words)
+
+
+    for i in range(0,len(words)):
+        replacements = []
+
+        for syn in wordnet.synsets(words[i]):
+
+            if tagged[i][1] == 'NNP' or tagged[i][1] == 'DT':
+                break
+
+            word_type = tagged[i][1][0].lower()
+            if syn.name().find("."+word_type+"."):
+                # extract the word only
+                r = syn.name()[0:syn.name().find(".")]
+                replacements.append(r)
+
+        if len(replacements) > 0:
+            # Choose a random replacement
+            replacement = replacements[randint(0,len(replacements)-1)]
+            output = output + " " + replacement
+        else:
+            output = output + " " + words[i]
+
+    return output
 #Login
 @app.route("/")
 def landing():
@@ -70,6 +120,7 @@ def landing():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
 #Sign up/ Register
 @app.route("/signup")
 def signup():
@@ -178,9 +229,29 @@ def Home():
     if person["is_logged_in"]==False:
         return render_template("signup.html")
     return render_template("index.html")
-
+@app.route("/stt")
+def stt():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('login'))
+    return render_template("stt.html")
+@app.route("/paraphrase")
+def paraphrase():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('login'))
+    return render_template("paraphrase.html")
+@app.route("/phrase",methods=["POST"])
+def phrase():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('.'))
+    sen=request.get_json()
+    pem=sen['data']
+    text=ph(pem)
+    ata={'name':text}
+    return jsonify(ata)
 @app.route("/Summarize",methods=["GET","POST"])
 def Summarize():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('login'))
     if req.method== "POST":
         API_URL = "https://api-inference.huggingface.co/models/sshleifer/distilbart-cnn-6-6"
         API_URL_2 = "https://api-inference.huggingface.co/models/google/pegasus-xsum"
@@ -203,33 +274,117 @@ def Summarize():
         def query2(payload):
             response = requests.post(API_URL_2, headers=headers, json=payload)
             return response.json()
-        # def query3(payload):
-        #     response = requests.post(API_URL_3, headers=headers, json=payload)
-        #     return response.json()
-        # def query4(payload):
-        #     response = requests.post(API_URL_4, headers=headers, json=payload)
-        #     return response.json()
+        def query3(payload):
+            response = requests.post(API_URL_3, headers=headers, json=payload)
+            return response.json()
+        def query4(payload):
+            response = requests.post(API_URL_4, headers=headers, json=payload)
+            return response.json()
+
+        output4 = query4({
+            "inputs":data,
+            "parameters":{"min_length":minL,"max_length":maxL},
+        })[0]
 
         output = query({
             "inputs":data,
             "parameters":{"min_length":minL,"max_length":maxL},
         })[0]
-        # output2 = query2({
-        #     "inputs":data,
-        #     "parameters":{"min_length":minL,"max_length":maxL},
-        # })
-        # output3 = query3({
-        #     "inputs":data,
-        #     "parameters":{"min_length":minL,"max_length":maxL},
-        # })[0]
-        # output4 = query4({
-        #     "inputs":data,
-        #     "parameters":{"min_length":minL,"max_length":maxL},
-        # })[0]
 
-        return render_template("index.html",result=output["summary_text"])
+        output2 = query2({
+            "inputs":data,
+            "parameters":{"min_length":minL,"max_length":maxL},
+        })[0]
+
+        output3 = query3({
+            "inputs":data,
+            "parameters":{"min_length":minL,"max_length":maxL},
+        })[0]
+
+
+
+
+        return render_template("index.html",result=output["summary_text"],result2=output2["summary_text"],result3=output3["summary_text"],result4=output4["summary_text"])
     else:
         return render_template("index.html")
+@app.route("/question")
+def question():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('.'))
+    return render_template("ques.html")
+@app.route("/answer")
+def answer():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('.'))
+    return render_template("answer.html")
+@app.route("/questions", methods = ['POST','GET'])
+def questions():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+
+        # # getting data from form
+        # # getting data from form
+        print(request.form)
+        print(request.form['text_data'])
+        print(request.form['plan'])
+        text = request.form['text_data']
+        que_type = request.form['plan']
+        questions = []
+        if(que_type == "boolean"):
+            questions = yes_no_que(text) # returns list of questions
+
+        elif(que_type == "mcq"):
+            quest = mcq_ques(text) # returns list of dictionary --> {question, answer, options}
+            print(quest)
+            for p in quest:
+                print(p)
+                questions.append(p)
+
+        return render_template('ques.html', type = que_type, text=text, questions=questions)
+        # return redirect(url_for('.ques_gen', type = que_type, text=text, que=questions))
+
+    else:
+        return render_template('ques.html')
+
+@app.route("/answers", methods = ['POST','GET'])
+def answers():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        # # getting data from form
+        print(request.form)
+        print(request.form['text_data'])
+        print(request.form['plan'])
+        text = request.form['text_data']
+        que_type = request.form['plan']
+        que = request.form['question']
+
+        if(que_type == "boolean"):
+            answer = answer_boolean(text,que) # returns list of questions
+
+        elif(que_type == "mcq"):
+            answer = answer_predictor(text,que)
+
+        return render_template('answer.html', type = que_type, text=text, question=que, answer = answer)
+        # return redirect(url_for('.ques_gen', type = que_type, text=text, que=questions))
+
+    else:
+        return render_template('answer.html')
+
+@app.route("/tts", methods=["GET", "POST"])
+def texttospeech():
+	status = 0
+	if request.method == "POST":
+		if request.form.get('mp3') == "Convert":
+			text_data = request.form.get('text')
+			language = request.form.get('language')
+			audio = gTTS(text_data, lang=language)
+			audio.save("static/your_audio.mp3")
+			status = 1
+			return render_template("tts.html", status=status)
+
+	return render_template("tts.html", status=status)
 
 @app.route("/logout")
 def logout():

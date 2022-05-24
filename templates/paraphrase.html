@@ -1,0 +1,77 @@
+
+{% extends 'base1.html' %}
+
+
+{% block body %}
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='para.css') }}"/>
+  <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+</head>
+
+
+<body>
+<br>
+<br>
+<br>
+<br>
+
+	<div class="main">
+		<div class="head" style="margin-top:4rem">
+			<h1>ParaphraseTool</h1>
+			
+		</div>
+
+		<div class="wrapper">
+			<textarea id='input' placeholder="type here to paraphrase...."></textarea>
+			<textarea id='output'></textarea>
+		</div>
+		
+		<br/>
+			 
+		 <br/>
+		 
+	 
+
+
+		<div class="container">
+			<span><p id='char'></p></span>
+			<button onclick="change()" class='right'>Go!</button>
+		</div>
+	
+
+	</div>
+
+</body>
+
+<script>
+	function change(){
+
+		var input = document.querySelector("#input").value;
+		var output = document.querySelector('#output');
+
+
+
+fetch("{{ url_for('phrase') }}", {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+  	data: input
+  }),
+})
+.then(response => response.json())
+.then(data => {
+
+	output.value = data.name;
+
+  console.log('Success:', data.name);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+}
+
+</script>
+{% endblock %}

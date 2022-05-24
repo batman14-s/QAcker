@@ -8,7 +8,55 @@
   <title>QAcker</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  <link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css" />
+<style type="text/css">
+  body {
+      font-family: verdana;
+      width: 100%;
+  }
 
+  .spinner {
+      width: 80px;
+      height: 80px;
+
+      border: 2px solid #f3f3f3;
+      border-top: 3px solid #f25a41;
+      border-radius: 100%;
+
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+
+      animation: spin 1s infinite linear;
+  }
+
+  #result {
+      height: 180px;
+      background-color: white;
+      box-shadow: 0 0 10px 0 #bbb;
+      margin-bottom: 30px;
+      font-size: 14px;
+      line-height: 25px;
+  }
+
+  button-con {
+      position: relative;
+      border: 1px solid currentColor;
+      font-size: 1.1rem;
+      color: #4f93ce;
+      margin: 3rem 0;
+      padding: 0.75rem 3rem;
+      cursor: pointer;
+      -webkit-transition: background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+      transition: background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+      overflow: hidden;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  }
+</style>
   <!-- Favicons -->
   <!-- <link href="assets/img/favicon.png" rel="icon"> -->
   <!-- <img src="{{url_for('static', filename='assets/img/favicon.png')}}" rel="icon" /> -->
@@ -49,7 +97,7 @@
   <!-- Template Main CSS File -->
   <!-- <link href="assets/css/main.css" rel="stylesheet"> -->
   <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->  
 
 </head>
 
@@ -78,11 +126,14 @@
             </ul>
           </li> -->
 
-          <li><a class="nav-link scrollto" href="/">Home </a></li>
-          <li><a class="nav-link scrollto" href="index.html#featured-services">Features</a></li>
-          <li><a class="nav-link scrollto" href="index.html#about">About Us</a></li>
-          <li><a class="nav-link scrollto" href="index.html#features">Attributes</a></li>
-          <li><a class="nav-link scrollto" href="index.html#team">Our Team</a></li>
+          <li><a class="nav-link scrollto" href="/welcome">Home </a></li>
+          <li><a class="nav-link scrollto" href="/paraphrase">Paraphraser</a></li>
+          <li><a class="nav-link scrollto" href="/Summarize">Summarizer</a></li>
+          <li><a class="nav-link scrollto" href="/question">Question Generator</a></li>
+          <li><a class="nav-link scrollto" href="/answer">Answer Predictor</a></li>
+          <li><a class="nav-link scrollto" href="/tts">Text to speech</a></li>
+          <li><a class="nav-link scrollto" href="/stt">Speech to text</a></li>
+          <li><a class="nav-link scrollto" href="/logout">Logout</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle d-none"></i>
       </nav><!-- .navbar -->
@@ -103,20 +154,19 @@
 <!-- ======= Footer ======= -->
 <footer id="footer" class="footer">
 
-    <div class="footer-content">
-      <div class="container">
-        
-        <!-- Made With ❤️ by Team Romanticsss <3 -->
-        <p>Made With ❤️ by Team Romanticsss <br>
-          ©2022, Team Romanticsss <3</p>
-     
-        
-      </div>
-    </div>
-
+  <div class="footer-content">
+    <div class="container">
+      
+      <!-- Made With ❤️ by Team Romanticsss <3 -->
+      <p>Made With ❤️ by Team Romanticsss <br>
+        ©2022, Team Romanticsss <3</p>
    
+      
+    </div>
+  </div>
+  
 
-  </footer><!-- End Footer -->
+ </footer>
  
 
 
