@@ -4,6 +4,7 @@
 
 {% block body %}
 
+
 <head>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='para.css') }}"/>
   <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
@@ -15,6 +16,9 @@
 <br>
 <br>
 <br>
+<!-- ------------------------------------------------------------------ -->
+
+<!-- ------------------------------------------------------------------------------ -->
 
 	<div class="main">
 		<div class="head" style="margin-top:4rem">
@@ -50,27 +54,46 @@
 		var input = document.querySelector("#input").value;
 		var output = document.querySelector('#output');
 
+		var myHeaders = new Headers();
+myHeaders.append("apikey", "Rz64CXH65ZPNQuI2l7MwOEJdY9iyvCPq");
 
 
-fetch("{{ url_for('phrase') }}", {
+var requestOptions = {
   method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-  	data: input
-  }),
-})
-.then(response => response.json())
-.then(data => {
+  redirect: 'follow',
+  headers: myHeaders,
+  body: input
+};
 
-	output.value = data.name;
+fetch("https://api.apilayer.com/paraphraser", requestOptions)
+  .then(response => response.text())
+  .then(result => {
+	result=JSON.parse(result)
+	console.log(result.original);
+	console.log(result.paraphrased);
+	output.value=result.paraphrased;
+  })
+  .catch(error => console.log('error', error));
 
-  console.log('Success:', data.name);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
+// fetch("{{ url_for('phrase') }}", {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify({
+//   	data: input
+//   }),
+// })
+// .then(response => response.json())
+// .then(data => {
+
+// 	output.value = data.name;
+
+//   console.log('Success:', data.name);
+// })
+// .catch((error) => {
+//   console.error('Error:', error);
+// });
 }
 
 </script>
