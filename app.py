@@ -10,6 +10,7 @@ from gtts import gTTS
 from flask import Flask,render_template,url_for
 from flask import request as req
 from flask_dance.contrib.google import make_google_blueprint, google
+# from question_answer.question_generator import generate_questions
 # from question_generator import yes_no_que, mcq_ques, answer_boolean, answer_predictor
 from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize
@@ -20,6 +21,22 @@ import nltk
 nltk.download('averaged_perceptron_tagger')
 nltk.download('punkt')
 nltk.download('wordnet')
+
+## 
+from crypt import methods
+from operator import truediv
+from transformers import pipeline
+import moviepy.editor
+from question_answer.question_generator import generate_questions
+from summary import summarizer
+import speech_recognition as sr
+import os
+import nltk
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
+
+##
 
 load_dotenv()
 app = Flask(__name__)
@@ -94,6 +111,38 @@ def ph(text):
             output = output + " " + words[i]
 
     return output
+
+def video_to_audio(path):
+    video = moviepy.editor.VideoFileClip(path)
+    aud = video.audio
+    aud.write_audiofile("demo.wav")
+    print("--End--")
+
+#audio_to_text
+def audio_to_text(path):
+    text=''
+    r=sr.Recognizer()
+    with sr.AudioFile(path) as source:
+        audio_data = r.record(source)
+        text = r.recognize_google(audio_data)
+        print(text)
+        return text
+
+# Keywords Finder
+def keyword_generator(text,range, top_n):
+    n_gram_range = (1, range)
+    stop_words = "english"
+    count = CountVectorizer(ngram_range=n_gram_range, stop_words=stop_words).fit([text])
+    candidates = count.get_feature_names_out()
+    model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+    doc_embedding = model.encode([text])
+    candidate_embeddings = model.encode(candidates)
+    distances = cosine_similarity(doc_embedding, candidate_embeddings)
+    keywords = [candidates[index] for index in distances.argsort()[0][-top_n:]]
+    print(keywords)
+    return keywords
+
+
 #Login
 @app.route("/")
 def landing():
@@ -307,6 +356,7 @@ def Summarize():
         return render_template("index.html",result=output["summary_text"],result2=output2["summary_text"],result3=output4["summary_text"])
     else:
         return render_template("index.html")
+
 # @app.route("/question")
 # def question():
 #     if person["is_logged_in"]==False:
@@ -371,6 +421,47 @@ def Summarize():
 
 #     else:
 #         return render_template('answer.html')
+
+@app.route('/question_gen', methods = ['GET','POST'])
+def success():
+    if request.method == 'GET':
+        return render_template('upload.html')
+    if request.method == 'POST':
+        fileType = request.form.get('type')
+        if(fileType=="audio" or fileType=="video"):
+            f = request.files['file']
+            if(fileType=="video"):
+                f.save(f.filename)
+                path = f.filename
+                video = moviepy.editor.VideoFileClip(path)
+                video_to_audio(path)
+            else:
+                f.save("demo.wav")
+            text = audio_to_text("demo.wav")
+        # # summary_text = text_summary(text)
+        else:
+            text = request.form.get("inputText")
+        # Generating Questions
+        questions_data = generate_questions(text)
+        print(questions_data)
+        for item in questions_data:
+            item['question']=item['question'].replace("<pad>", "")
+            item['answer']=item['answer'].replace("<pad>", "")
+        # Generating Keywords
+        keywords=[]
+        keywords.append(keyword_generator(text, 1, 5))
+        keywords.append(keyword_generator(text, 2, 3))
+        keywords.append(keyword_generator(text, 3, 1))
+        ch1 = len(text);
+        w1 = len(text.split())
+        sentences = nltk.sent_tokenize(text)
+        summaryLen = len(sentences)
+        summary_text=summarizer(text, summaryLen//2)
+        ch2 = len(summary_text);
+        w2 = len(summary_text.split())
+        print(summary_text)
+
+        return render_template('summary.html', actualText = text, summary_text = summary_text, questions_data = questions_data, keywords = keywords, w1 = w1, w2 = w2, ch1 = ch1, ch2 = ch2)
 
 @app.route("/tts", methods=["GET", "POST"])
 def texttospeech():
