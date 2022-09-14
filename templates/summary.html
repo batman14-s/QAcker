@@ -1,0 +1,135 @@
+{% extends "base1.html" %}
+
+{% block body %}
+
+<!-- <p>File uploaded successfully</p>
+<p>File Name: {{name}}</p> -->
+
+<div data-aos="fade-up" id="actual">
+  <h1 class="text-2xl my-10 font-semibold text-center">Here Is The Complete Text</h1>
+  <div class="summary ">
+    {{actualText}}
+  </div>
+</div>
+
+<div data-aos="fade-up" id="summary">
+  <h1 class="text-2xl my-10 font-semibold text-center">Here Is The Summary</h1>
+<div class="summary ">
+  {{summary_text}}
+</div>
+
+<div class="flex flex-row justify-around mt-20">
+    <canvas data-aos="zoom-in-right" id="Chart1" style="width:40%;max-width:400px; height: 100px; background-color: white;padding: 20px; border-radius: 20px 0px 20px 0px;"></canvas>
+    <canvas data-aos="zoom-in-left" id="Chart2" style="width:40%;max-width:400px; height: 100px; background-color: white;padding: 20px; border-radius: 20px 0px 20px 0px;"></canvas>
+</div>
+
+<script>
+var xValues = ["Actual Word Count", "Summarized Word Count"];
+var yValues = [{{w1}}, {{w2}}];
+var barColors = ["green","orange"];
+
+new Chart("Chart1", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+    //   label:['Plot'],
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {
+        display: false,
+    },
+    title: {
+      display: true,
+      text: "Word Count Before & After"
+    },
+    // scales: {
+    //         yAxes: [{
+    //             ticks: {
+    //                 beginAtZero: true
+    //             }
+    //         }],
+    //         xAxes: [{
+    //         	barPercentage: 0.2
+    //         }]
+    //     }
+    // }
+  }
+});
+
+xValues = ["Actual Character Count", "Summarized Character Count"];
+yValues = [{{ch1}}, {{ch2}}];
+barColors = ["green","orange"];
+
+new Chart("Chart2", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Character Count Before & After"
+    },
+    // scales: {
+    //         yAxes: [{
+    //             ticks: {
+    //                 beginAtZero: true
+    //             }
+    //         }],
+    //         xAxes: [{
+    //         	barPercentage: 0.2
+    //         }]
+    //     }
+    // }
+  }
+});
+</script>
+</div>
+
+
+<div id="questions">
+  <h1 class="text-2xl my-10 font-semibold text-center">Here Are Some Questions</h1>
+  {% for item in questions_data %}
+  <div class="mb-10">
+    <h3 data-aos="fade-up"  class="que"><b>Question:</b> {{item['question']}}</h3>
+    <h4 data-aos="fade-up" class="ans"><b>Answer:</b> {{item['answer']}} </h4>
+  </div>
+  {% endfor %}
+</div>
+
+
+<div id="dates">
+  <h1 class="text-2xl my-10 font-semibold text-center">Keywords used in the file.</h1>
+  <div class="mb-10 flex flex-row justify-center flex-wrap">
+  {% for items in keywords %}
+  {% for item in items %}
+    <div class="text-xl" style="background-color: darkmagenta; padding: 5px 10px; margin: 10px; border-radius: 20px;"><a href="https://www.dictionary.com/browse/{{item}}">{{item}}</a></div>
+  {% endfor %}
+  {% endfor %}
+  </div>
+</div>
+
+<div id="dates">
+  <h1 class="text-2xl my-10 font-semibold text-center">Here Are Some Important Dates With Events</h1>
+  <table style="margin: auto; max-width: 800px; width: 80%;">
+    <tr>
+      <th>Date</th>
+      <th>Event</th>
+    </tr>
+    <tr>
+      <td>Jill</td>
+      <td>Smith</td>
+    </tr>
+  </table>
+</div>
+
+{% endblock %}

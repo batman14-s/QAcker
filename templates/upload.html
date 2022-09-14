@@ -1,0 +1,56 @@
+{% extends "base1.html" %}
+
+{% block body %}
+
+
+<h1 class="text-2xl my-10 font-semibold text-center">Get Insights From Your Video/Audio/Text</h1>
+<ul class=" list-disc cursor-pointer "  id="showListBtn"><h1 class="text-xl underline">KNOW HOW TO USE?</h1>
+    <div id="showList">
+        <li>If you want to get insights from a text paragraph write the text in the text box.</li>
+        <li>If you want to get insights from an audio or video then uplGet Insights From Your Paragraph Or Video/Audio File.</li>
+        <li>Submit the form.</li>
+        <li>Wait while its processing.</li>
+        <li>And its all done! :)</li>
+    </div>
+</ul>
+
+<!-- <div id="text">Hello</div> -->
+
+<div class="wrapper mt-10 flex flex-row justify-between">
+    <div class="form-outline flex-grow bg-white" style="width: 20%;">
+        <div class="form " style="height: 100%;">
+            <form action="/question_gen" class="" method="POST" style="height: 100%;">
+               <textarea id="text" style="width: 100%; height: 90%; resize: none;"  class="form-control max-10 flex-grow text-black" name="inputText" id="textAreaExample1"></textarea>
+                <div class="flex-grow-0">
+                    <input type="hidden" name="type" value="text">
+                    <input style="width: 100%;" type = "submit" value="Submit">
+                </div>
+           </form>
+        </div>
+    </div>
+    <div style="width: 0; height: 50vh;" class="bg-white upload text-black mx-10 flex-grow flex flex-col justify-between">
+        <form class="flex flex-row justify-around" action = "/question_gen" method = "post" enctype="multipart/form-data">
+            <div class="icon"><i style="font-size: 100px;" class="fa-solid fa-file-video"></i></div>
+            <div class="form flex flex-col justify-between">
+                <h3>Upload Video File</h3>
+                <input type="file" name="file" />
+                <input type="hidden" name="type" value="video">
+                <br>
+                <input type = "submit" value="Upload">
+            </div>
+        </form>
+        <p class="text-2xl text-center font-semibold">OR</p>
+        <form class="flex flex-row justify-around" action = "/question_gen" method = "post" enctype="multipart/form-data">
+            <div class="icon"><i style="font-size: 100px;" class="fa-solid fa-file-audio"></i> </div>
+            <div class="form flex flex-col justify-between">
+                <h3>Upload Audio File</h3>
+                <input type="file" name="file" />
+                <input type="hidden" name="type" value="audio">
+                <br>
+                <input type = "submit" value="Upload">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
