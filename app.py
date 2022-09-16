@@ -222,9 +222,9 @@ def result():
             person["email"] = user["email"]
             person["uid"] = user["localId"]
             #Get the name of the user
-            data = db.child("users").child(person["uid"]).get()
-            print(data.val())
-            person["name"] = data.val()["name"]
+            # data = db.child("users").child(person["uid"]).get()
+            # print(data.val())
+            # person["name"] = data.val()["name"]
             # print("heloo",person["name"])
             # #Redirect to welcome page
             return redirect(url_for('welcome'))
@@ -409,7 +409,7 @@ def answers():
         text = request.form['text_data']
         que_type = request.form['plan']
         que = request.form['question']
-
+        answer = ""
         if(que_type == "boolean"):
             answer = answer_boolean(text,que) # returns list of questions
 

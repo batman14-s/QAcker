@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h2>Boolean Questions</h2>
+{% for que in questions %}
+    {{que}}
+{% endfor %}
+
+<h2>MCQ Questions</h2>
+{% for que in questions %}
+    {{que.question}}
+    {% for op in que.options %}
+    <li>{{ op }}</li>
+    {% endfor %}
+    
+    Answer is: {{ que.answer }
+{% endfor %}
+
+{% endblock%}

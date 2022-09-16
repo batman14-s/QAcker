@@ -34,7 +34,8 @@ def answer_predictor(text,que):
         "input_question" : que   
     }
     output = answer.predict_answer(payload)
-
+    print("mcq ans")
+    print(type(output))
     return output
 
 def answer_boolean(text,que):
@@ -44,7 +45,8 @@ def answer_boolean(text,que):
     }
     answer = main.AnswerPredictor()
     output = answer.predict_answer(payload)
-
+    print("bool ans")
+    print(type(output))
     return output
 
 # text = "Kalpana Chawla (17 March 1962  1 February 2003) was an Indian-born American astronaut and mechanical engineer who was the first woman of Indian origin to go to space."
