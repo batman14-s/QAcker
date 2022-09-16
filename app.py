@@ -11,7 +11,7 @@ from flask import Flask,render_template,url_for
 from flask import request as req
 from flask_dance.contrib.google import make_google_blueprint, google
 # from question_answer.question_generator import generate_questions
-# from question_generator import yes_no_que, mcq_ques, answer_boolean, answer_predictor
+from question_generator import yes_no_que, mcq_ques, answer_boolean, answer_predictor
 from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize
 from random import randint
@@ -367,60 +367,60 @@ def Summarize():
 #     if person["is_logged_in"]==False:
 #         return redirect(url_for('.'))
 #     return render_template("answer.html")
-# @app.route("/questions", methods = ['POST','GET'])
-# def questions():
-#     if person["is_logged_in"]==False:
-#         return redirect(url_for('login'))
-#     if request.method == 'POST':
+@app.route("/questions", methods = ['POST','GET'])
+def questions():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
 
-#         # # getting data from form
-#         # # getting data from form
-#         print(request.form)
-#         print(request.form['text_data'])
-#         print(request.form['plan'])
-#         text = request.form['text_data']
-#         que_type = request.form['plan']
-#         questions = []
-#         if(que_type == "boolean"):
-#             questions = yes_no_que(text) # returns list of questions
+        # # getting data from form
+        # # getting data from form
+        print(request.form)
+        print(request.form['text_data'])
+        print(request.form['plan'])
+        text = request.form['text_data']
+        que_type = request.form['plan']
+        questions = []
+        if(que_type == "boolean"):
+            questions = yes_no_que(text) # returns list of questions
 
-#         elif(que_type == "mcq"):
-#             quest = mcq_ques(text) # returns list of dictionary --> {question, answer, options}
-#             print(quest)
-#             for p in quest:
-#                 print(p)
-#                 questions.append(p)
+        elif(que_type == "mcq"):
+            quest = mcq_ques(text) # returns list of dictionary --> {question, answer, options}
+            print(quest)
+            for p in quest:
+                print(p)
+                questions.append(p)
 
-#         return render_template('ques.html', type = que_type, text=text, questions=questions)
-#         # return redirect(url_for('.ques_gen', type = que_type, text=text, que=questions))
+        return render_template('ques.html', type = que_type, text=text, questions=questions)
+        # return redirect(url_for('.ques_gen', type = que_type, text=text, que=questions))
 
-#     else:
-#         return render_template('ques.html')
+    else:
+        return render_template('ques.html')
 
-# @app.route("/answers", methods = ['POST','GET'])
-# def answers():
-#     if person["is_logged_in"]==False:
-#         return redirect(url_for('login'))
-#     if request.method == 'POST':
-#         # # getting data from form
-#         print(request.form)
-#         print(request.form['text_data'])
-#         print(request.form['plan'])
-#         text = request.form['text_data']
-#         que_type = request.form['plan']
-#         que = request.form['question']
+@app.route("/answers", methods = ['POST','GET'])
+def answers():
+    if person["is_logged_in"]==False:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        # # getting data from form
+        print(request.form)
+        print(request.form['text_data'])
+        print(request.form['plan'])
+        text = request.form['text_data']
+        que_type = request.form['plan']
+        que = request.form['question']
 
-#         if(que_type == "boolean"):
-#             answer = answer_boolean(text,que) # returns list of questions
+        if(que_type == "boolean"):
+            answer = answer_boolean(text,que) # returns list of questions
 
-#         elif(que_type == "mcq"):
-#             answer = answer_predictor(text,que)
+        elif(que_type == "mcq"):
+            answer = answer_predictor(text,que)
 
-#         return render_template('answer.html', type = que_type, text=text, question=que, answer = answer)
-#         # return redirect(url_for('.ques_gen', type = que_type, text=text, que=questions))
+        return render_template('answer.html', type = que_type, text=text, question=que, answer = answer)
+        # return redirect(url_for('.ques_gen', type = que_type, text=text, que=questions))
 
-#     else:
-#         return render_template('answer.html')
+    else:
+        return render_template('answer.html')
 
 @app.route('/question_gen', methods = ['GET','POST'])
 def success():

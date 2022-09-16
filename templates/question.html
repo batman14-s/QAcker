@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<div class="form-outline flex-grow bg-white" style="width: 20%;">
+    <div class="form " style="height: 100%;">
+        <form action="/questions" class="" method="POST" style="height: 100%;">
+           <textarea id="text" style="width: 100%; height: 90%; resize: none;"  class="form-control max-10 flex-grow text-black" name="inputText" id="textAreaExample1"></textarea>
+            <div class="flex-grow-0">
+                <input type="hidden" name="type" value="text">
+                <input style="width: 100%;" type = "submit" value="Submit">
+            </div>
+       </form>
+    </div>
+</div>
+
+
+{% endblock%}
