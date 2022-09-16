@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+html, div, p, body, h1, h2, h3, h4, h5, h6, *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: black;
+}
+.background {
+	/* height: 2000px; */
+	background: black;
+    width: 99.3vw;
+    position: absolute;
+    z-index: -10;
+}
+
+.scene {
+	position: absolute;
+	width: 100%;
+	transform: translateY(var(--translateY));
+	will-change: transform;
+    padding-top: 50px;
+}
+#scene-first{
+    padding-top: 0px;
+}
+.landing{
+    height: 100vh;
+    padding-top: 35vh;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+.main-text{
+    font-family: 'Permanent Marker', cursive;
+}
+.landing img{
+    height: 300px;
+    /*display: none;*/
+    margin: auto;
+    /* transform: translateY(-80px);
+    -webkit-transform: translateY(-80px);
+    -moz-transform: translateY(-80px);
+    -ms-transform: translateY(-80px);
+    -o-transform: translateY(-80px); */
+}
+.info{
+    margin-bottom: 5vh;
+    font-family: 'Play', sans-serif;
+}
+.info-cover{
+    transform: translateY(-80px);
+    -webkit-transform: translateY(-80px);
+    -moz-transform: translateY(-80px);
+    -ms-transform: translateY(-80px);
+    -o-transform: translateY(-80px);
+}
+.header{
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.logo{
+    height: 150px;
+    transform: translate(-30px, -75px);
+    -webkit-transform: translate(-30px, -75px);
+    -moz-transform: translate(-30px, -75px);
+    -ms-transform: translate(-30px, -75px);
+    -o-transform: translate(-30px, -75px);
+}
+.btn{
+    font-size: 18px;
+    text-decoration: none;
+    border: 2px solid white;
+    color: white;
+    background-color: transparent;
+    padding: 5px 15px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+}
+
+.btn:hover{
+    background-color: white;
+    color: darkslategrey;
+    /* border-color: darkslategray; */
+    letter-spacing: 2px;
+}
+
+.links{
+    width: 300px;
+    transform: translateY(-20px);
+}
+.links a{
+    /* border: 2px solid white; */
+    /* background-color: rgb(98, 154, 228); */
+    height: 30px;
+    /* padding: 0px 10px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px; */
+}
+
+/* .links a:hover{
+    background-color: transparent;
+} */
+#about{
+    margin:auto;
+    padding: 8%;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    background-color: rgb(220,220,220);
+    
+}
+#ourteam{
+    background-color: black;
+}
+ /* Footer Team */
+.container {
+    font-family: 'Lato', sans-serif;
+    margin:0px;
+    padding-top: 20px;
+    text-align: center;
+    background-color: black;
+    margin-right: 0px;
+}
+.header {
+    font-family: 'Lato', sans-serif;
+    padding-top: 30px;
+    font-size: 20px;
+    margin: auto;
+    line-height: 50px;
+}
+.profile-img{
+    font-family: 'Lato', sans-serif;
+    margin: auto;
+    border-radius: 100px;
+}
+
+.sub-container {
+    font-family: 'Lato', sans-serif;
+    width : 100%;
+    margin: 0px 50px;
+    padding: 30px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.teams {
+    background-color: whitesmoke;
+    font-family: 'Lato', sans-serif;
+    margin: 40px;
+    padding: 22px;
+    max-width: 30%;
+    cursor: pointer;
+    transition: 0.4s;
+    box-sizing: border-box;
+    border-radius: 12px;
+}
+.social-links {
+    text-align: center;
+    margin: 14px;
+}
+
+.social-links a {
+
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    transition: .4s;
+}
+
+.social-links a:hover {
+    transform: scale(1.5);
+}
+
+.social-links a i {
+    color: black;
+}
+.teams:hover {
+    /* background: rgba(220, 220, 220, 0.396); */
+    transform: scale(1.05);
+    border-radius: 12px;
+    
+}
+
+.teams img {
+    width: 200px;
+    height: 200px;
+}
+
+.name {
+    color:  rgb(40,40,40);
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.desig {
+    text-align: center;
+    color:  rgb(40,40,40);
+    font-style: italic;
+}
+
+.about {
+    color:  rgb(40,40,40);
+    margin: 20px 0;
+    font-weight: lighter;
+}
+footer{
+    background-color: rgb(40,40,40);
+    padding: 2%;
+    margin-bottom: 0px;
+    
+}
+
+
+@media screen and (max-width: 600px) {
+    .teams {
+        max-width: 100%;
+    }
+}

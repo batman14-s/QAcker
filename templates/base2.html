@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>QAcker</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+
+
+
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/graphStyle.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+       <!--Replace with your tailwind.css once created-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js" integrity="sha512-Lii3WMtgA0C0qmmkdCpsG0Gjr6M0ajRyQRQSbTF6BsrVh/nhZdHpVZ76iMIPvQwz1eoXC3DmAg9K51qT5/dEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        .nunito {
+            font-family: 'nunito', font-sans;
+        }
+        .border-b-1 {
+            border-bottom-width: 1px;
+        }
+        .border-l-1 {
+            border-left-width: 1px;
+        }
+        hover\:border-none:hover {
+            border-style: none;
+        }
+        #sidebar {
+            transition: ease-in-out all .3s;
+            z-index: 9999;
+        }
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+        #sidebar:hover {
+            width: 150px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+
+    <!-- base1 templates -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <!-- <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}">
+    <!-- <link href="assets/vendor/aos/aos.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}">
+    <!-- <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}">
+    <!-- <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}">
+  
+    <!-- Variables CSS Files. Uncomment your preferred color scheme -->
+    <!-- <link href="assets/css/variables.css" rel="stylesheet"> -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/variables.css') }}">
+      <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/questions.css') }}"> -->
+  
+      
+  
+    <!-- <link href="assets/css/variables-blue.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-green.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-orange.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-purple.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-red.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-pink.css" rel="stylesheet"> -->
+  
+    <!-- Template Main CSS File -->
+    <!-- <link href="assets/css/main.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->  
+  
+
+    <!-- base 1 template end -->
+
+
+</head>
+
+
+
+<body class="flex h-screen bg-gray-100 font-sans">
+
+
+
+ <!-- ======= Header ======= -->
+ <header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <a href="/welcome" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1>QAcker<span>.</span></h1>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+
+          <!-- <li class="dropdown"><a href="#"><span>Home</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="index.html" class="active">Home 1 - index.html</a></li>
+              <li><a href="index-2.html">Home 2 - index-2.html</a></li>
+              <li><a href="index-3.html">Home 3 - index-3.html</a></li>
+              <li><a href="index-4.html">Home 4 - index-4.html</a></li>
+            </ul>
+          </li> -->
+
+          <li><a class="nav-link scrollto" href="/welcome">Home </a></li>
+          <li><a class="nav-link scrollto" href="/paraphrase">Paraphraser</a></li>
+          <li><a class="nav-link scrollto" href="/Summarize">Summarizer</a></li>
+          <li><a class="nav-link scrollto" href="/question_gen">Question Generator</a></li>
+          <li><a class="nav-link scrollto" href="/answer">Answer Predictor</a></li>
+          <li><a class="nav-link scrollto" href="/tts">Text to speech</a></li>
+          <li><a class="nav-link scrollto" href="/stt">Speech to text</a></li>
+          <li><a class="nav-link scrollto" href="/logout">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle d-none"></i>
+      </nav><!-- .navbar -->
+
+      <!-- <a class="btn-getstarted scrollto" href="index.html#about">Get Started</a> -->
+
+    </div>
+  </header>
+    <!-- Side bar
+    <div id="sidebar" class="h-screen w-16 menu text-white px-4 flex items-center nunito static fixed shadow">
+
+        <ul class="list-reset ">
+            <li class="my-2 md:my-0">
+                <a href="/" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Home</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/home" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-indigo-400">
+                    <i class="fa-solid fa-file-arrow-up mr-3"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Upload</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="#summary" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-indigo-400">
+                    <i class="fa-solid fa-align-left mr-3"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Summary</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0 ">
+                <a href="#questions" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-indigo-400">
+                    <i class="fa-solid fa-circle-question mr-3"></i> <span class="w-full inline-block pb-1 md:pb-0 text-sm"> Questions</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="#dates" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-indigo-400"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Information</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/tool" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-indigo-400">
+                    <i class="fa-solid fa-screwdriver-wrench mr-3"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Tools</span>
+                </a>
+            </li>
+        </ul>
+    </div> -->
+
+
+    <div style="margin-left:95px; margin-right: 10px; width: 100%;">
+        {% block body%}
+
+        {% endblock %}
+
+        <script src="/static/index.js"></script>
+        <script src="/static/graph.js"></script>
+    </div>
+<!-- ======= Footer ======= -->
+<!-- <footer id="footer" class="footer">
+
+    <div class="footer-content">
+      <div class="container">
+        
+        <!-- Made With ❤️ by Team Romanticsss <3 ->
+        <p>Made With ❤️ by Team Romanticsss <br>
+          ©2022, Team Romanticsss <3</p>
+     
+        
+      </div>
+    </div>
+    
+  
+   </footer> -->
+   
+  
+  
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  
+    <div id="preloader"></div>
+  
+    <!-- Vendor JS Files -->
+    <!-- <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+  <script src="{{url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- <script src="assets/vendor/aos/aos.js"></script> -->
+    <script src="{{url_for('static', filename='assets/vendor/aos/aos.js')}}"></script>
+    <!-- <script src="assets/vendor/glightbox/js/glightbox.min.js"></script> -->
+    <script src="{{url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+    <!-- <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script> -->
+    <script src="{{url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+    <!-- <script src="assets/vendor/swiper/swiper-bundle.min.js"></script> -->
+    <script src="{{url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+    <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
+    <script src="{{url_for('static', filename='assets/vendor/php-email-form/validate.js')}}"></script>
+  
+    <!-- Template Main JS File -->
+    <!-- <script src="assets/js/main.js"></script> -->
+    <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+
+    
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+
+</html>
+

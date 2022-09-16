@@ -20,7 +20,7 @@ a:hover { color: tomato; }
 
 .container {
 	max-width: 600px;
-	height: 1500px;
+	/* height: 1500px; */
 	margin: 0 auto;
 	padding: 20px;
 }
