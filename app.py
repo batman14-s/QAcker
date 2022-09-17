@@ -151,20 +151,20 @@ def landing():
     person["uid"] = ""
     person["name"] = ""
     google_data = None
-    user_info_endpoint = '/oauth2/v2/userinfo'
-    if google.authorized :
-        google_data = google.get(user_info_endpoint).json()
-        print("okay",google_data)
-        if'error' in google_data:
-              return render_template("landing.html")
-        print(google_data)
-        person['email']=google_data['email']
-        person['name']=google_data['name']
-        person["is_logged_in"]=True
-        data = {"name":google_data['name'], "email": google_data['email']}
-        t1=db.child("users").child(google_data["id"]).set(data)
-        return redirect(url_for('welcome'))
-    return render_template("landing.html")
+    try:
+        user_info_endpoint = '/oauth2/v2/userinfo'
+        if google.authorized :
+            google_data = google.get(user_info_endpoint).json()
+            print("okay",google_data)
+            if'error' in google_data:
+                return render_template("landing.html")
+            print(google_data)
+            person['email']=google_data['email']
+            person['name']=google_data['name']
+            person["is_logged_in"]=True
+            return redirect(url_for('welcome'))
+    finally:
+        return render_template("landing.html")
 #Login
 @app.route("/login")
 def login():
@@ -469,7 +469,7 @@ def texttospeech():
 	if request.method == "POST":
 		if request.form.get('mp3') == "Convert":
 			text_data = request.form.get('text')
-			language = request.form.get('language')
+			language = request.form.get('lang')
 			audio = gTTS(text_data, lang=language)
 			audio.save("static/your_audio.mp3")
 			status = 1
@@ -479,20 +479,24 @@ def texttospeech():
 
 @app.route("/logout")
 def logout():
-    if google.authorized:
-        token = blueprint.token["access_token"]
-        resp = google.post(
-            "https://accounts.google.com/o/oauth2/revoke",
-            params={"token": token},
-            headers={"Content-Type": "application/x-www-form-urlencoded"}
-        )
-        assert resp.ok, resp.text
-        print(google.get("/oauth2/v2/userinfo").json())
-    person["is_logged_in"] = False
-    person["email"] = ""
-    person["uid"] = ""
-    person["name"] = ""
-    return render_template("landing.html")
+    try :
+        if google.authorized:
+            token = blueprint.token["access_token"]
+            resp = google.post(
+                "https://accounts.google.com/o/oauth2/revoke",
+                params={"token": token},
+                headers={"Content-Type": "application/x-www-form-urlencoded"}
+            )
+            assert resp.ok, resp.text
+            print(google.get("/oauth2/v2/userinfo").json())
+    except:
+        print(logout)
+    finally:
+        person["is_logged_in"] = False
+        person["email"] = ""
+        person["uid"] = ""
+        person["name"] = ""
+        return render_template("landing.html")
 # -----------------------------------------------------------------------------------------
 # ============================================================================================
 
