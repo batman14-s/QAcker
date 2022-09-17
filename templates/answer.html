@@ -18,68 +18,75 @@
 
 
 <form action="/answers" method="POST">
-    <br><br><br>
-    <textarea id="text_data" name="text_data" placeholder="Enter text to generate questions" rows="10" cols="120" style="margin:3rem"></textarea>
-  
-    <div class="container">
-        <div class="plans">
-          <input type="text" name = "question" id = "question" placeholder="Enter Question">
-            <div class="title">Choose the type of Answer you want</div>
-            <label class="plan basic-plan" for="basic">
-                <input checked type="radio" name="plan" id="basic" value="mcq" />
-               
-                <div class="plan-content">
-                    <!-- <img loading="lazy"
+  <br><br><br>
+  <textarea id="text_data" name="text_data" placeholder="Enter text to generate questions" rows="10" cols="120"
+    style="margin:3rem"></textarea>
+
+  <div class="container">
+    <div class="plans">
+      <input type="text" name="question" id="question" placeholder="Enter Question">
+      <div class="title">Choose the type of Answer you want</div>
+      <label class="plan basic-plan" for="basic">
+        <input checked type="radio" name="plan" id="basic" value="mcq" />
+
+        <div class="plan-content">
+          <!-- <img loading="lazy"
                         src="https://raw.githubusercontent.com/ismailvtl/ismailvtl.github.io/master/images/life-saver-img.svg"
                         alt="" /> -->
-                    <div class="plan-details">
-                        <span>Multiple Choice Answer</span>
-                        <!-- <p>Generates questions and provides 4 options with one correct answer.</p> -->
-                    </div>
-                </div>
-            </label>
-  
-            <label class="plan complete-plan" for="complete">
-                <input type="radio" id="complete" name="plan" value="boolean" />
-                <div class="plan-content">
-                    <!-- <img loading="lazy"
+          <div class="plan-details">
+            <span>Multiple Choice Answer</span>
+            <!-- <p>Generates questions and provides 4 options with one correct answer.</p> -->
+          </div>
+        </div>
+      </label>
+      <br>
+      <label class="plan complete-plan" for="complete">
+        <input type="radio" id="complete" name="plan" value="boolean" />
+        <div class="plan-content">
+          <!-- <img loading="lazy"
                         src="https://raw.githubusercontent.com/ismailvtl/ismailvtl.github.io/master/images/potted-plant-img.svg"
                         alt="" /> -->
-                    <div class="plan-details">
-                        <span>Boolean : Yes/No Answer</span>
-                        <!-- <p>Provides questions with their answer being of the form Yes/No or True/False</p> -->
-                    </div>
-                </div>
-            </label>
-        </div>
-        <input type="submit" value="SAVE" id="saveButton" />
-    </div>
-  </form>
-
-
-  <!-- ======= Call To Action Section ======= -->
-    <section id="cta" class="cta">
-      <div class="container" data-aos="zoom-out">
-
-        <div class="row g-5">
-
-          <div class="col-lg-8 col-md-6 content d-flex flex-column justify-content-center order-last order-md-first">
-            <h3>{{question}}</h3>
-            <p> {{answer}}</p>
-            <!-- <a class="cta-btn align-self-start" href="#">Call To Action</a> -->
+          <div class="plan-details">
+            <span>Boolean : Yes/No Answer</span>
+            <!-- <p>Provides questions with their answer being of the form Yes/No or True/False</p> -->
           </div>
+        </div>
+      </label>
+    </div>
+    <input type="submit" value="SUBMIT" id="saveButton" />
+  </div>
+</form>
 
-          <!-- <div class="col-lg-4 col-md-6 order-first order-md-last d-flex align-items-center">
+
+<!-- ======= Call To Action Section ======= -->
+<section id="cta" class="cta">
+  <div class="container5" data-aos="zoom-out">
+    <h4 box-sizing = "">
+      Context : 
+      <br>
+      {{text}}
+    </h4>
+    <br><br>
+    <div class="row g-5">
+
+      <div class="col-lg-8 col-md-6 content d-flex flex-column justify-content-center order-last order-md-first">
+        <h4>Question : {{question}}</h4>
+        <br>
+        <p>Answer : {{answer}}</p>
+        <!-- <a class="cta-btn align-self-start" href="#">Call To Action</a> -->
+      </div>
+
+      <!-- <div class="col-lg-4 col-md-6 order-first order-md-last d-flex align-items-center">
             <div class="img">
               <img src="assets/img/cta.jpg" alt="" class="img-fluid">
             </div>
           </div> -->
 
-        </div>
+    </div>
 
-      </div>
-    </section>
-    <!-- End Call To Action Section -->
+  </div>
+</section>
+<!-- End Call To Action Section -->
 
 <!-- <div>     
   Answer to the Question:
