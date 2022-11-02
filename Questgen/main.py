@@ -32,6 +32,7 @@ from Questgen.mcq.mcq import generate_questions_mcq
 from Questgen.mcq.mcq import generate_normal_questions
 import time
 
+
 class QGen:
     
     def __init__(self):
