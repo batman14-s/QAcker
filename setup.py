@@ -1,5 +1,6 @@
 from distutils.core import setup
 
+
 setup(name='Questgen',
       version='1.0.0',
       description='Question generator from any text',
